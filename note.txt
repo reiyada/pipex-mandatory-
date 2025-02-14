@@ -163,4 +163,5 @@ tester: https://github.com/michmos/42_pipex_tester
 - If there is any empty arguments (ex) ./pipex infile "ls -l" "" outfile
 - If the pipe creation fails
 - If fork fails
-- If you
+- If you cannot find the cmd
+    ->KEEP THE EXIT STATUS OF CMD2 AS THE EXIT STATUS OF THE MAIN
