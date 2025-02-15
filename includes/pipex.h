@@ -6,7 +6,7 @@
 /*   By: ryada <ryada@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:32:40 by ryada             #+#    #+#             */
-/*   Updated: 2025/02/13 17:35:12 by ryada            ###   ########.fr       */
+/*   Updated: 2025/02/15 10:19:00 by ryada            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 //pipex.c//
 void ft_exec(char *cmd, char **envp);
-void ft_child(char **argv, int *pipe_fd, char **envp);
-void ft_parent(char **argv, int *pipe_fd, char **envp);
+void ft_first_child(char **argv, int *pipe_fd, char **envp);
+void ft_second_child(char **argv, int *pipe_fd, char **envp);
 
 //utils.c//
 void	ft_free_tab(char **tab);

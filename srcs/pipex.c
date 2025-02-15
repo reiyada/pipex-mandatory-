@@ -6,7 +6,7 @@
 /*   By: ryada <ryada@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:34:18 by ryada             #+#    #+#             */
-/*   Updated: 2025/02/14 13:26:34 by ryada            ###   ########.fr       */
+/*   Updated: 2025/02/15 10:19:03 by ryada            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void ft_exec(char *cmd, char **envp)
     ft_free_tab(cmd_tab);
 }
 
-void ft_child(char **argv, int *pipe_fd, char **envp)
+void ft_first_child(char **argv, int *pipe_fd, char **envp)
 {
     int fd;
 
@@ -52,7 +52,7 @@ void ft_child(char **argv, int *pipe_fd, char **envp)
     ft_exec(argv[2], envp);//execute the first command
 }
 
-void ft_parent(char **argv, int *pipe_fd, char **envp)
+void ft_second_child(char **argv, int *pipe_fd, char **envp)
 {
     int fd;
 
@@ -85,13 +85,13 @@ int main(int argc, char **argv, char **envp)
     if (pid1 == -1)
         return (ft_putstr_fd("[Error] Fork failed!\n", 2), 1);
     if (pid1 == 0) // First child executes cmd1
-        ft_child(argv, pipe_fd, envp);
+        ft_first_child(argv, pipe_fd, envp);
     close(pipe_fd[1]); // Parent closes write end of pipe
     pid2 = fork(); // Fork again for the sond commanecd
     if (pid2 == -1)
         return (ft_putstr_fd("[Error] Fork failed!\n", 2), 1);
     if (pid2 == 0) // Second child executes cmd2
-        ft_parent(argv, pipe_fd, envp);
+        ft_second_child(argv, pipe_fd, envp);
     close(pipe_fd[0]); // Parent closes read end of pipe
     waitpid(pid1, &status, 0); // Wait for cmd1
     waitpid(pid2, &status, 0); // Wait for cmd2
